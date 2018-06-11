@@ -6,6 +6,7 @@ import Login from '../pages/Login'
 import Register from '../pages/Register'
 import MyGalleries from '../pages/MyGalleries'
 import CreateNewGallery from '../pages/CreateNewGallery'
+
 Vue.use(VueRouter)
 
 const routes = [{
