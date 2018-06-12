@@ -19,6 +19,9 @@
             <div class="form-group row">
 
                 <div class="offset-4 col-8">
+                     <div v-for="(error, key) in errors" :key="key" v-if="error" class="alert alert-danger">
+                        {{error}}
+                    </div>
                     <button name="submit" type="submit" class="btn btn-primary">Log in</button>
                 </div>
             </div>
@@ -27,18 +30,39 @@
 </template>
 
 <script>
+import {
+        authService
+    } from "./../services/AuthService"
+import {
+        mapMutations
+    } from "vuex"
     export default {
         name: "Login",
         data() {
             return {
                 email:"",
-                password:""
+                password:"",
+                errors:[]
             }
         },
         methods: {
-            onSubmit(){
-                ///
-            }
+            ...mapMutations([
+                "setIsAuthenticated"
+            ]),
+              onSubmit() {
+                authService.login(this.email, this.password)
+                    .then(() => {
+                        this.$router.push({
+                            name: "home"
+                        })
+                        this.setIsAuthenticated(true)
+
+                    }).catch((error) => {
+                        this.errors = error.response.data;
+                        // console.log("SeeLoginErrors", this.errors)
+                    })
+
+            },
         }
     }
 </script>

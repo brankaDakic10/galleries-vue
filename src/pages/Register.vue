@@ -8,7 +8,9 @@
                 <div class="col-8">
                     <label for="firstName" class="col-4 col-form-label">First name</label>
                     <input id="firstName" name="firstName" type="name" class="form-control here" v-model="newUser.firstName">
-
+ <div class="alert alert-danger" role="alert" v-if="errors.firstName">
+                    {{ errors.firstName[0] }}
+                </div>
                 </div>
 
             </div>
@@ -17,7 +19,9 @@
                 <div class="col-8">
                     <label for="lastName" class="col-4 col-form-label">Last name</label>
                     <input id="lastName" name="lastName" type="name" class="form-control here" v-model="newUser.lastName">
-
+<div class="alert alert-danger" role="alert" v-if="errors.lastName">
+                    {{ errors.lastName[0] }}
+                </div>
                 </div>
 
             </div>
@@ -28,7 +32,9 @@
                 <div class="col-8">
                     <label for="email" class="col-4 col-form-label">Email</label>
                     <input id="email" name="email" type="email" class="form-control here" v-model="newUser.email">
-
+<div class="alert alert-danger" role="alert" v-if="errors.email">
+                    {{ errors.email[0] }}
+                </div>
                 </div>
 
             </div>
@@ -38,7 +44,9 @@
                 <div class="col-8">
                     <label for="password" class="col-4 col-form-label">Password</label>
                     <input id="password" name="password" type="password" class="form-control here" v-model="newUser.password">
-
+<div class="alert alert-danger" role="alert" v-if="errors.password">
+                    {{ errors.password[0] }}
+                </div>
                 </div>
 
 
@@ -49,7 +57,9 @@
                 <div class="col-8">
                     <label for="password_confirmation" class="col-4 col-form-label">Password_confirmation:</label>
                     <input id="password_confirmation" name="password_confirmation" type="password" class="form-control here" v-model="newUser.password_confirmation">
-
+<div class="alert alert-danger" role="alert" v-if="errors.password_confirmation">
+                    {{ errors.password_confirmation[0] }}
+                </div>
                 </div>
 
             </div>
@@ -80,11 +90,16 @@
 </template>
 
 <script>
+import {
+        authService
+    } from "./../services/AuthService"
+    import {
+        mapMutations
+    } from "vuex"
     export default {
         name: "Register",
         data() {
             return {
-
                 newUser: {
                     firstName: "",
                     lastName: "",
@@ -92,15 +107,31 @@
                     password: "",
                     password_confirmation: "",
                     conditions: false
-                }
+                },
+                errors:{},
+                
             }
         },
         methods: {
+             ...mapMutations([
+                "setIsAuthenticated"
+            ]),
             onSubmit() {
-                ///
+                  authService.register(this.newUser)
+                    .then(() => {
+                        this.errors = {}
+                        this.$router.push({
+                            name: "home"
+                        })
+                         this.setIsAuthenticated(true);
+                    }).catch(err => {
+                      this.errors = err.response.data;
+                    //   console.log("seeRegisterErrors",this.errors)
+                       })
             },
             onReset() {
-                ///
+                this.newUser={}
+                this.errors={}
             }
         }
     }

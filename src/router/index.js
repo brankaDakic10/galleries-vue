@@ -12,7 +12,7 @@ Vue.use(VueRouter)
 const routes = [{
     path: '/',
     component: AllGalleries,
-    name: 'galleries'
+    name: 'home'
 },
 {
     path: '/login',

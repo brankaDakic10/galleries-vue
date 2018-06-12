@@ -1,15 +1,15 @@
 <template>
     <div>
         <nav class="navbar navbar-expand-lg navbar-dark main-nav">
-            <router-link class="navbar-brand" :to="{name:'galleries'}">AllGalleries</router-link>
+            <router-link class="navbar-brand" :to="{name:'home'}">AllGalleries</router-link>
             <div class="navbar-nav w-100">
                 <router-link class="nav-item nav-link" :to="{name:'my-galleries'}">MyGalleries</router-link>
                 <router-link class="nav-item nav-link" :to="{name:'create'}">CreateNewGallery</router-link>
 
                 <div class="navbar-nav">
-                    <router-link class="nav-item nav-link" :to="{name:'login'}">Login</router-link>
-                    <router-link class="nav-item nav-link" :to="{name:'register'}">Register</router-link>
-                    <a href="#" class="nav-item nav-link" @click="logout">Logout</a>
+                    <router-link class="nav-item nav-link" :to="{name:'login'}" v-if="!isAuthenticated">Login</router-link>
+                    <router-link class="nav-item nav-link" :to="{name:'register'}" v-if="!isAuthenticated">Register</router-link>
+                    <a href="#" class="nav-item nav-link" @click="logout" v-if="isAuthenticated">Logout</a>
                 </div>
             </div>
         </nav>
@@ -17,11 +17,33 @@
 </template>
 
 <script>
+ import {
+        authService
+    } from "./../services/AuthService"
+     import {
+        mapMutations,
+        mapGetters
+    } from "vuex";
+    
     export default {
         name: "NavBar",
-        methods: {
+  methods: {
+            ...mapMutations([
+                "setIsAuthenticated"
+            ]),
+
             logout() {
-                // 
+                authService.logout();
+                this.setIsAuthenticated(false);
+            }
+        },
+
+        computed: {
+            ...mapGetters({
+                getAuthUser: "getIsAuthenticated"
+            }),
+            isAuthenticated() {
+                return this.getAuthUser;
             }
         }
     }
