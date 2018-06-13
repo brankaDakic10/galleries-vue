@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { galleriesService } from './../services/GalleriesService'
+
     import Gallery from './../components/Gallery.vue'
     export default {
         name: "AllGaleries",
@@ -19,7 +21,17 @@
         },
         data() {
             galleries: []
-        }
+        },
+         beforeRouteEnter (to, from, next) {
+   galleriesService.getAll()
+      .then((response) => {
+        next((vm) => {
+          vm.galleries = response.data
+        })
+      }).catch((error) => {
+        console.log(error)
+      })
+  }
     }
 </script>
 

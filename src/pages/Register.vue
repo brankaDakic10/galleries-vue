@@ -68,8 +68,12 @@
                 <div class="col-8">
                     <div class="form-check form-check-inline">
                         <label class="form-check-label">
-                            <input name="conditions" type="checkbox" class="form-check-input" value="true" v-model="newUser.conditions"> I accept terms and conditions
+                            <input name="terms" type="checkbox" class="form-check-input" value="true" v-model="newUser.terms"> I accept terms and conditions
+                        <div class="alert alert-danger" role="alert" v-if="errors.terms">
+                    {{ errors.terms[0] }}
+                </div>
                         </label>
+                        
                     </div>
                 </div>
             </div>
@@ -106,7 +110,7 @@ import {
                     email: "",
                     password: "",
                     password_confirmation: "",
-                    conditions: false
+                    terms:""
                 },
                 errors:{},
                 
