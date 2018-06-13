@@ -20,7 +20,9 @@ import { galleriesService } from './../services/GalleriesService'
             Gallery
         },
         data() {
+            return{
             galleries: []
+            }
         },
          beforeRouteEnter (to, from, next) {
    galleriesService.getAll()

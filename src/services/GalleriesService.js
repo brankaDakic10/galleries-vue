@@ -7,8 +7,11 @@ export default class GalleriesService {
     getAll () {
         return axios.get()
     }
-    get(id) {
+    getGallery(id) {
         return axios.get(`galleries/${id}`)
+    }
+    getUser(id) {
+        return axios.get(`authors/${id}`)
     }
     add (gallery) {
         return axios.post('create', gallery)
@@ -19,7 +22,7 @@ export default class GalleriesService {
     remove (id) {
         return axios.delete(`galleries/${id}`) 
     }
-
+  
 
 }
 export const galleriesService = new GalleriesService()
