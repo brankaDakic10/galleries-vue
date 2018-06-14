@@ -17,7 +17,7 @@
             <div class="form-group row">
                 <label class="col-4 col-form-label" for="imageUrl">Image url:</label>
                 <div class="col-8">
-                    <input id="imageUrl" name="imageUrl" type="text" class="form-control here" required="required" v-model="newGallery.imageUrl">
+                    <input id="imageUrl" name="imageUrl" type="text" class="form-control here" required="required" v-model="newGallery.imageUrl.imageUrl">
                 </div>
             </div>
              <div class="form-group row">
@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import { galleriesService } from './../services/GalleriesService'
+
     export default {
         name: "CreateNewGallery",
         data() {
@@ -52,13 +54,28 @@
                 newGallery: {
                     title: "",
                     description: "",
-                    imageUrl: ""
+                    imageUrl:{
+                        imageUrl:""
+                    }
                 }
             }
         },
         methods: {
+            // ERROR
             storeGallery() {
-                //
+               galleriesService.add(this.newGallery)
+                .then(() => {
+                       
+                        this.redirectToHome()
+                    }).catch(errors => {
+
+                        this.errors = errors.response.data
+                    })
+            },
+            redirectToHome() {
+                this.$router.push({
+                    name: 'home'
+                })
             },
             onReset() {
                 this.newGallery = {}

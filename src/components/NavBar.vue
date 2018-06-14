@@ -1,10 +1,13 @@
 <template>
     <div>
         <nav class="navbar navbar-expand-lg navbar-dark main-nav">
-            <router-link class="navbar-brand" :to="{name:'home'}">AllGalleries</router-link>
+    <a href="#" class="navbar-brand" >GalleriesApp</a>
+
             <div class="navbar-nav w-100">
-                <router-link class="nav-item nav-link" :to="{name:'my-galleries'}">MyGalleries</router-link>
-                <router-link class="nav-item nav-link" :to="{name:'create'}">CreateNewGallery</router-link>
+             <router-link class="nav-item nav-link" :to="{name:'home'}">AllGalleries</router-link>
+
+                <router-link class="nav-item nav-link" :to="{name:'my-galleries'}" v-if="isAuthenticated">MyGalleries</router-link>
+                <router-link class="nav-item nav-link" :to="{name:'create'}" v-if="isAuthenticated">CreateNewGallery</router-link>
 
                 <div class="navbar-nav">
                     <router-link class="nav-item nav-link" :to="{name:'login'}" v-if="!isAuthenticated">Login</router-link>
@@ -33,9 +36,17 @@
             ]),
 
             logout() {
-                authService.logout();
+                authService.logout()
+                
                 this.setIsAuthenticated(false);
-            }
+               this.redirectToLogin()
+            },
+             redirectToLogin() {
+                this.$router.push({
+                    name: 'login'
+                })
+            },
+           
         },
 
         computed: {

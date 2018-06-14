@@ -4,13 +4,14 @@ import {
 
 //    handler
 export function requiresAuth(to) {
-    console.log('requiresAuth', to)
+
 
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!authService.isAuthenticated()) {
-            return window.location.href = '/login'
-            // return Promise.reject({name: 'login'
-            // })
+            // return window.location.href = '/login'
+            return Promise.reject({
+                name: 'login'
+            })
         }
 
         authService.setAxiosDefaultAuthorizationHeader()
@@ -22,15 +23,15 @@ export function requiresAuth(to) {
 //    handler
 
 export function guestOnly(to) {
-    console.log('guestOnly', to)
-    
-    if (to.matched.some(record => record.meta.guestOnly) &&
-    authService.isAuthenticated()
-) {
-    return Promise.reject({
-        name: 'home'
-    })
-}
 
-return Promise.resolve(to)
+
+    if (to.matched.some(record => record.meta.guestOnly) &&
+        authService.isAuthenticated()
+    ) {
+        return Promise.reject({
+            name: 'home'
+        })
+    }
+
+    return Promise.resolve(to)
 }

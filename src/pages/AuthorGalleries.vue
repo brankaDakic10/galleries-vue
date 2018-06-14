@@ -8,7 +8,7 @@
             <i style="color: darkblue">Author: </i>{{author.firstName}} {{author.lastName}}</h6>
            <h6> <i style="color: darkblue">Email: </i>{{author.email}}</h6>
 
-        
+
 
     </div>
 

@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import { galleriesService } from './../services/GalleriesService'
-
-    import Gallery from './../components/Gallery.vue'
+ import { galleriesService } from "./../services/GalleriesService"
+// import { mapGetters, mapActions } from "vuex";
+    import Gallery from "./../components/Gallery.vue"
     export default {
         name: "AllGaleries",
         components: {
@@ -24,15 +24,31 @@ import { galleriesService } from './../services/GalleriesService'
             galleries: []
             }
         },
+        // computed: {
+        //  ...mapGetters({
+        // galleries: "getGalleries"
+        // })
+
+        // },
+        // methods: {
+        //     ...mapActions([
+        //         "fetchGalleries"
+        //         ])
+        // },
+        // created() {
+        //     this.fetchGalleries();
+        // },
+
          beforeRouteEnter (to, from, next) {
    galleriesService.getAll()
       .then((response) => {
         next((vm) => {
           vm.galleries = response.data
         })
-      }).catch((error) => {
-        console.log(error)
+      }).catch(() => {
+        // console.log(error)
       })
+ 
   }
     }
 </script>
