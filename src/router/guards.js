@@ -4,8 +4,8 @@ import {
 
 //    handler
 export function requiresAuth(to) {
-
-
+    
+    
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!authService.isAuthenticated()) {
             // return window.location.href = '/login'
@@ -13,25 +13,25 @@ export function requiresAuth(to) {
                 name: 'login'
             })
         }
-
+        
         authService.setAxiosDefaultAuthorizationHeader()
     }
-
+    
     return Promise.resolve(to)
 }
 
 //    handler
 
 export function guestOnly(to) {
-
-
+    
+    
     if (to.matched.some(record => record.meta.guestOnly) &&
-        authService.isAuthenticated()
-    ) {
-        return Promise.reject({
-            name: 'home'
-        })
-    }
+    authService.isAuthenticated()
+) {
+    return Promise.reject({
+        name: 'home'
+    })
+}
 
-    return Promise.resolve(to)
+return Promise.resolve(to)
 }

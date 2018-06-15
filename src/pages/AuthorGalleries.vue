@@ -7,7 +7,12 @@
         <h6 class="card-title">
             <i style="color: darkblue">Author: </i>{{author.firstName}} {{author.lastName}}</h6>
            <h6> <i style="color: darkblue">Email: </i>{{author.email}}</h6>
-
+          <section >
+           <h5><i style="color: darkblue">List of Galleries</i></h5>
+          <ul v-for="gallery in author.galleries" :key="gallery.id">
+          <i style="color: darkblue">  <li> Title:   {{gallery.title}}
+                    </li></i></ul>
+          </section>
 
 
     </div>
@@ -41,4 +46,3 @@
     };
 </script>
 
-</style>

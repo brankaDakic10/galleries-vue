@@ -11,8 +11,11 @@
 </template>
 
 <script>
- import { galleriesService } from "./../services/GalleriesService"
-// import { mapGetters, mapActions } from "vuex";
+    //  import { galleriesService } from "./../services/GalleriesService"
+    import {
+        mapGetters,
+        mapActions
+    } from "vuex";
     import Gallery from "./../components/Gallery.vue"
     export default {
         name: "AllGaleries",
@@ -20,36 +23,36 @@
             Gallery
         },
         data() {
-            return{
-            galleries: []
+            return {
+                // galleries: []
             }
         },
-        // computed: {
-        //  ...mapGetters({
-        // galleries: "getGalleries"
-        // })
+        computed: {
+            ...mapGetters({
+                galleries: "getGalleries"
+            })
 
-        // },
-        // methods: {
-        //     ...mapActions([
-        //         "fetchGalleries"
-        //         ])
-        // },
-        // created() {
-        //     this.fetchGalleries();
-        // },
+        },
+        methods: {
+            ...mapActions([
+                "fetchGalleries"
+            ])
+        },
+        created() {
+            this.fetchGalleries();
+        },
 
-         beforeRouteEnter (to, from, next) {
-   galleriesService.getAll()
-      .then((response) => {
-        next((vm) => {
-          vm.galleries = response.data
-        })
-      }).catch(() => {
-        // console.log(error)
-      })
- 
-  }
+        //          beforeRouteEnter (to, from, next) {
+        //    galleriesService.getAll()
+        //       .then((response) => {
+        //         next((vm) => {
+        //           vm.galleries = response.data
+        //         })
+        //       }).catch(() => {
+        //         // console.log(error)
+        //       })
+
+        //   }
     }
 </script>
 

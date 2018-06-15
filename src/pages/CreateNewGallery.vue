@@ -14,18 +14,31 @@
                     <input id="description" name="description" type="text" class="form-control here" maxlength="1000" v-model="newGallery.description">
                 </div>
             </div>
-            <div class="form-group row">
+            <!-- <div class="form-group row">
                 <label class="col-4 col-form-label" for="imageUrl">Image url:</label>
                 <div class="col-8">
-                    <input id="imageUrl" name="imageUrl" type="text" class="form-control here" required="required" v-model="newGallery.imageUrl.imageUrl">
+                    <input id="imageUrl" name="imageUrl" type="text" class="form-control here" required="required" v-model="newGallery.imageUrl">
                 </div>
+            </div> -->
+
+            <div v-for="(row, key) in newGallery.images" :key="key" class="form-group">
+      <label for="image">Image url</label>
+      <div class="input-group mb-3">
+      <input v-model="row.imageUrl" type="text" id="image" class="form-control" placeholder="Image url" />
+      <div v-if="newGallery.images.length !== 1" class="input-group-prepend">
+      <button @click.prevent="deleteRow(key)" class="btn btn-danger">Delete</button>
+      <button>Move UP</button>
+      <button>Move DOWN</button>
+      </div>
+      </div>
             </div>
-             <div class="form-group row">
-                 <div class="col-4"></div>
+            <button @click.prevent="addRowImage">Add another url</button>
+            <div class="form-group row">
+                <div class="col-4"></div>
                 <!-- <label class="col-4 col-form-label" for="imageUrl">Add new image url:</label> -->
                 <div class="col-8">
-              
- <button  class="btn btn-default">Add another URL</button>
+
+                    <!-- <button @click="addUrl" class="btn btn-default">Add another URL</button> -->
 
                 </div>
             </div>
@@ -45,7 +58,9 @@
 </template>
 
 <script>
-import { galleriesService } from './../services/GalleriesService'
+    import {
+        galleriesService
+    } from './../services/GalleriesService'
 
     export default {
         name: "CreateNewGallery",
@@ -54,18 +69,19 @@ import { galleriesService } from './../services/GalleriesService'
                 newGallery: {
                     title: "",
                     description: "",
-                    imageUrl:{
-                        imageUrl:""
-                    }
+                    images: [{imageUrl:''}]
                 }
             }
         },
         methods: {
+            addRowImage(){
+             this.newGallery.images.push({imageUrl:''});
+            },
             // ERROR
             storeGallery() {
-               galleriesService.add(this.newGallery)
-                .then(() => {
-                       
+                galleriesService.add(this.newGallery)
+                    .then(() => {
+
                         this.redirectToHome()
                     }).catch(errors => {
 
@@ -76,6 +92,9 @@ import { galleriesService } from './../services/GalleriesService'
                 this.$router.push({
                     name: 'home'
                 })
+            },
+            addUrl() {
+
             },
             onReset() {
                 this.newGallery = {}

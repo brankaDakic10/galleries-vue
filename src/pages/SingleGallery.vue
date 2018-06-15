@@ -14,14 +14,34 @@
             <i style="color: darkblue">Created_at: </i>{{ gallery.created_at}}</h6>
         <!-- carousel  -->
         <div class="container mt-4">
-             <b-carousel id="carousel1"
-                controls
-                indicators>
-                <b-carousel-slide v-for="(image, key) in gallery.images" :key="key" :img-src="image.imageUrl" style="width:100%; height:250px"/>
-</b-carousel>
+            <b-carousel id="carousel1" controls indicators>
+                <b-carousel-slide v-for="(image, key) in gallery.images" :key="key" :img-src="image.imageUrl" style="width:100%; height:250px"
+                />
+            </b-carousel>
 
         </div>
         <!-- end -->
+        <!-- comments -->
+        <div class="mt-4">
+
+            <!-- <comment-list :comments="comments"></comment-list> -->
+
+            <add-comment @commentAdded="addComment"></add-comment>
+
+        </div>
+        <!-- comments end--> 
+ <div class="mt-4">
+<div class="list-group" v-if="gallery.comments.length" >
+      <h5>Comments:</h5>
+    <li class="list-group-item" 
+    v-for="comment in gallery.comments" :key="comment.id">
+   <p>Author:{{ comment.user.firstName  }}</p>  
+    <p>Comment Date:{{ comment.created_at}}</p>
+    <p>Comment Content- {{ comment.content }}</p>
+     <button v-if="comment.user.id == loggedUserId" class="btn btn-danger" @click="deleteComment(comment)">Delete</button>
+    </li>
+  </div>
+ </div>
 
     </div>
 
@@ -31,16 +51,58 @@
 
 
 <script>
+    import AddComment from "./../components/AddComment.vue"
+    import CommentsList from "./../components/CommentsList.vue"
+
+
+
+
     import {
         galleriesService
     } from './../services/GalleriesService'
     export default {
         name: "SingleGallery",
+        components: {
+            AddComment,
+            CommentsList
+        },
+
         data() {
             return {
-                gallery: {}
+                gallery: {},
+                loggedUserId: window.localStorage.getItem("currentUserId")
             };
         },
+        // computed: {
+        //     comments () {
+        //       return this.gallery.comments ? this.gallery.comments.reverse() : []
+        //     }
+        //   },
+
+                methods:{
+           addComment(comment){
+        galleriesService.addComment(comment, this.gallery.id)
+        .then((response) => {
+                    galleriesService.getGallery(this.gallery.id)
+                    .then((response) => {
+                    this.gallery= response.data
+                  
+                      })
+                        })
+            },
+
+             deleteComment(comment){
+    let confirmDelete = confirm('Do you want to delete this comment?')
+        if (confirmDelete) { 
+        galleriesService.deleteComment(comment.id)
+          .then((response) => {
+                    galleriesService.getGallery(this.gallery.id)
+                    .then((response) => {
+                    this.gallery= response.data
+                  
+                      })
+                        })
+            }}},
 
         beforeRouteEnter(to, from, next) {
             galleriesService.getGallery(to.params.id)
@@ -51,6 +113,5 @@
                 })
         }
 
-    };
+    }
 </script>
-

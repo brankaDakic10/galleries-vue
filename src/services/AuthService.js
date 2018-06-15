@@ -10,6 +10,8 @@ export default class AuthService {
             //   console.log(response.data.token);
 
             window.localStorage.setItem('loginToken', data.data.token)
+            window.localStorage.setItem('currentUserId', data.data.user.id)
+            
             this.setAxiosDefaultAuthorizationHeader()
         })
     }
@@ -22,6 +24,7 @@ export default class AuthService {
 
     logout() {
         window.localStorage.removeItem('loginToken')
+        window.localStorage.removeItem('currentUserId')
         delete axios.defaults.headers.common['Authorization']
     }
 
@@ -30,16 +33,16 @@ export default class AuthService {
         return !!window.localStorage.getItem('loginToken');
     }
 
-////?
+
     register(user) {
-        return axios.post(`http://localhost:8000/api/register`,user)
-        .then(data => {
-            window.localStorage.setItem('loginToken', data.data.token)
-            this.setAxiosDefaultAuthorizationHeader()
-        })
-         
+        return axios.post(`http://localhost:8000/api/register`, user)
+            .then(data => {
+                window.localStorage.setItem('loginToken', data.data.token)
+                this.setAxiosDefaultAuthorizationHeader()
+            })
+
     }
-    
+
 
 
 }
