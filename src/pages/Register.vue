@@ -1,111 +1,114 @@
 <template>
     <div class="container mt-4">
+        <section class="offset-2 col-8">
+            <form @submit.prevent="onSubmit" class="jumbotron mt-4">
+                <fieldset>
 
-        <form @submit.prevent="onSubmit" @reset="onReset" class="jumbotron mt-4">
-            <fieldset>
+                    <legend>
+                        <center>
+                            <h2 class="form-top">
+                                <b>CREATE YOUR ACCOUNT</b>
+                            </h2>
+                        </center>
+                    </legend>
 
-                <legend>
-                    <center>
-                        <h3>
-                            <b>Registration Form</b>
-                        </h3>
-                    </center>
-                </legend>
-               
-                <div class="form-group row">
+                    <div class="form-group row">
 
-                    <div class="col-8">
-                        <label for="firstName" class="col-4 col-form-label">First Name</label>
-                        <input id="firstName" name="firstName" type="name" class="form-control here" v-model="newUser.firstName">
-                        <div class="alert alert-danger" role="alert" v-if="errors.firstName">
-                            {{ errors.firstName[0] }}
+                        <div class="col-12">
+                            <label for="firstName" class="col-4 col-form-label">First Name</label>
+                            <input id="firstName" name="firstName" type="name" required="required" class="form-control here" v-model="newUser.firstName">
+                            <div class="alert alert-danger" role="alert" v-if="errors.firstName">
+                                {{ errors.firstName[0] }}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+
+                        <div class="col-12">
+                            <label for="lastName" class="col-4 col-form-label">Last Name</label>
+                            <input id="lastName" name="lastName" type="name" required="required" class="form-control here" v-model="newUser.lastName">
+                            <div class="alert alert-danger" role="alert" v-if="errors.lastName">
+                                {{ errors.lastName[0] }}
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group row">
+
+                        <div class="col-12">
+                            <label for="email" class="col-4 col-form-label">E-Mail</label>
+                            <input id="email" name="email" type="email" required="required" class="form-control here" v-model="newUser.email">
+                            <div class="alert alert-danger" role="alert" v-if="errors.email">
+                                {{ errors.email[0] }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-12">
+                            <label for="password" class="col-4 col-form-label">Password</label>
+                            <input id="password" name="password" type="password" required="required" class="form-control here" v-model="newUser.password">
+                            <div class="alert alert-danger" role="alert" v-if="errors.password">
+                                {{ errors.password[0] }}
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <div class="col-12">
+
+                            <label for="password_confirmation" class="col-4 col-form-label">Confirm Password</label>
+                            <input id="password_confirmation" name="password_confirmation" required="required" type="password" class="form-control here"
+                                v-model="newUser.password_confirmation">
+                            <div class="alert alert-danger" role="alert" v-if="errors.password_confirmation">
+                                {{ errors.password_confirmation[0] }}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+
+                        <div class="col-12">
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input name="terms" type="checkbox" class="form-check-input" value="true" v-model="newUser.terms"> I accept terms and conditions
+                                    <div class="alert alert-danger" role="alert" v-if="errors.terms">
+                                        {{ errors.terms[0] }}
+                                    </div>
+                                </label>
+
+                            </div>
                         </div>
                     </div>
 
-                </div>
-                <div class="form-group row">
 
-                    <div class="col-8">
-                        <label for="lastName" class="col-4 col-form-label">Last Name</label>
-                        <input id="lastName" name="lastName" type="name" class="form-control here" v-model="newUser.lastName">
-                        <div class="alert alert-danger" role="alert" v-if="errors.lastName">
-                            {{ errors.lastName[0] }}
+                    <div class="form-group row">
+                        <button name="submit" type="submit" class="btn btn-primary btn-block">Register</button>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-12">Already a member?
+                            <a href="#" @click="redirectToLogin">Login</a>
                         </div>
                     </div>
 
-                </div>
-
-
-                <div class="form-group row">
-
-                    <div class="col-8">
-                        <label for="email" class="col-4 col-form-label">E-Mail</label>
-                        <input id="email" name="email" type="email" class="form-control here" v-model="newUser.email">
-                        <div class="alert alert-danger" role="alert" v-if="errors.email">
-                            {{ errors.email[0] }}
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="form-group row">
-
-                    <div class="col-8">
-                        <label for="password" class="col-4 col-form-label">Password</label>
-                        <input id="password" name="password" type="password" class="form-control here" v-model="newUser.password">
-                        <div class="alert alert-danger" role="alert" v-if="errors.password">
-                            {{ errors.password[0] }}
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div class="form-group row">
-
-                    <div class="col-8">
-                        <label for="password_confirmation" class="col-4 col-form-label">Confirm Password</label>
-                        <input id="password_confirmation" name="password_confirmation" type="password" class="form-control here" v-model="newUser.password_confirmation">
-                        <div class="alert alert-danger" role="alert" v-if="errors.password_confirmation">
-                            {{ errors.password_confirmation[0] }}
-                        </div>
-                    </div>
-
-                </div>
-                <div class="form-group row">
-
-                    <div class="col-8">
-                        <div class="form-check form-check-inline">
-                            <label class="form-check-label">
-                                <input name="terms" type="checkbox" class="form-check-input" value="true" v-model="newUser.terms"> I accept terms and conditions
-                                <div class="alert alert-danger" role="alert" v-if="errors.terms">
-                                    {{ errors.terms[0] }}
-                                </div>
-                            </label>
-
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="form-group row">
-                    <div class="offset-6 col-8">
-
-                        <button name="reset" type="reset" class="btn btn-danger">Reset</button>
-
-                        <button name="submit" type="submit" class="btn btn-primary">Register</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
+                </fieldset>
+            </form>
 
 
 
 
 
 
-
+        </section>
 
     </div>
 </template>
@@ -150,13 +153,19 @@
                         //   console.log("seeRegisterErrors",this.errors)
                     })
             },
-            onReset() {
-                this.newUser = {}
-                this.errors = {}
+           
+            redirectToLogin() {
+                this.$router.push({
+                    name: 'login'
+                })
             }
         }
     }
 </script>
 
 <style>
+    .form-top {
+        padding-bottom: 20px;
+        margin-bottom: 10px;
+    }
 </style>

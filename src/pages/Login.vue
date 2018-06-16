@@ -1,42 +1,32 @@
 <template>
-    <div class="container mt-4">
+    <div class="container">
 
-        <form @submit.prevent="onSubmit"  class="jumbotron">
- 
- <legend>
-                    <center>
-                        <h3>
-                            <b>Please login</b>
-                        </h3>
-                    </center>
-                </legend>
-
-            <div class="form-group row">
-                <label for="email" class="col-4 col-form-label">Email</label>
-                <div class="col-8">
-                    <input id="email" name="email" placeholder="Email" type="email" class="form-control here" v-model="email">
+        <div class="login-form">
+            <form @submit.prevent="onSubmit">
+                <h2 class="text-center"><b>Log in</b></h2>
+                <div class="form-group">
+                    <input type="text" id="email" name="email" class="form-control" placeholder="Username" required="required" v-model="email">
                 </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="password" class="col-4 col-form-label">Password</label>
-                <div class="col-8">
-                    <input id="password" name="password" placeholder="Password" type="password" class="form-control here" v-model="password">
+                <div class="form-group">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="required" v-model="password">
                 </div>
-            </div>
-            <div class="form-group row">
+                <div class="form-group">
 
-                <div class="offset-4 col-8">
                     <div v-for="(error, key) in errors" :key="key" v-if="error" class="alert alert-danger">
                         {{error}}
                     </div>
-                   
-
-                    <button name="submit" type="submit"  class="btn btn-lg btn-primary btn-block" >Log in</button>
+                    <button type="submit" class="btn btn-block btn-success">Log in</button>
                 </div>
-            </div>
-        </form>
+
+            </form>
+            <p class="text-center">
+                <a href="#" @click="redirectToRegiser">Create an Account</a>
+            </p>
+        </div>
     </div>
+
+
+
 </template>
 
 <script>
@@ -73,56 +63,43 @@
                     })
 
             },
-            onReset() {
-                this.email = ""
-                this.password = ""
-                this.errors = ""
+            redirectToRegiser() {
+                this.$router.push({
+                    name: 'register'
+                })
             }
         }
     }
 </script>
 
 <style>
-body {
-	background: #eee !important;	
-}
+    .login-form {
+        width: 340px;
+        margin: 50px auto;
+    }
 
-.wrapper {	
-	margin-top: 80px;
-  margin-bottom: 80px;
-}
+    .login-form form {
+        margin-bottom: 15px;
+        background: #f7f7f7;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
 
-.form-signin {
-  max-width: 380px;
-  padding: 15px 35px 45px;
-  margin: 0 auto;
-  background-color: #fff;
-  border: 1px solid rgba(0,0,0,0.1);  
+    .login-form h2 {
+        margin: 0 0 15px;
+    }
 
- 
+    .form-control,
+    .btn {
+        min-height: 38px;
+        border-radius: 2px;
+        
+    }
 
-	
-	}
-
-	 .form-control {
-	  position: relative;
-	  font-size: 16px;
-	  height: auto;
-	  padding: 10px;
-	
-	} 
-
-	 input[type="text"] {
-	  margin-bottom: -1px;
-	  border-bottom-left-radius: 0;
-	  border-bottom-right-radius: 0;
-	}
-
-	input[type="password"] {
-	  margin-bottom: 20px;
-	  border-top-left-radius: 0;
-	  border-top-right-radius: 0;
-	} 
-
-
+    .btn {
+        font-size: 15px;
+        font-weight: bold;
+     
+    }
+  
 </style>

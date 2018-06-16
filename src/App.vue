@@ -18,5 +18,12 @@ export default {
 </script>
 
 <style>
-
+body {
+  background: #f0f3f1;
+  padding : 0;
+  margin : 0;
+  font-size : 14px;
+  font-family : arial;
+  font-weight : 600;
+}
 </style>
