@@ -96,7 +96,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-12">Already a member?
-                            <a href="#" @click="redirectToLogin">Login</a>
+                            <a href="#" @click="redirectToLogin" class="log">Login</a>
                         </div>
                     </div>
 
@@ -153,7 +153,7 @@
                         //   console.log("seeRegisterErrors",this.errors)
                     })
             },
-           
+
             redirectToLogin() {
                 this.$router.push({
                     name: 'login'
@@ -167,5 +167,8 @@
     .form-top {
         padding-bottom: 20px;
         margin-bottom: 10px;
+    }
+    .log{
+        color:#0069d9;
     }
 </style>

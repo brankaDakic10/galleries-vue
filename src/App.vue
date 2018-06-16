@@ -23,7 +23,7 @@ body {
   padding : 0;
   margin : 0;
   font-size : 14px;
-  font-family : arial;
   font-weight : 600;
+  font-family: 'Roboto Slab', serif, arial;
 }
 </style>

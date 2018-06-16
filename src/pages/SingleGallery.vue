@@ -1,51 +1,63 @@
 <template>
+    <div class="container">
+        <section class="col-md-8 offset-md-2 mt-4">
 
-    <div class="col-md-6 offset-md-3 mt-4">
-        <!-- <img class="card-img-top" :src="gallery.images[0].imageUrl" alt="Card image cap"
-      style="width: 5rem;"> -->
-        <h6 class="card-title">
-            <i style="color: darkblue">Title:</i>{{ gallery.title}}</h6>
-        <h6 class="card-title">
-            <i style="color: darkblue">Author: </i>{{gallery.user.firstName}} {{gallery.user.lastName}}</h6>
-        <h6 class="card-title">
-            <i style="color: darkblue">Description: </i>{{gallery.description}}</h6>
+            <div class="text-center top-div">
+                <h2 class="card-title font-color">
 
-        <h6 class="card-title">
-            <i style="color: darkblue">Created_at: </i>{{ gallery.created_at}}</h6>
-        <!-- carousel  -->
-        <div class="container mt-4">
-            <b-carousel id="carousel1" controls indicators>
-                <b-carousel-slide v-for="(image, key) in gallery.images" :key="key" :img-src="image.imageUrl" style="width:100%; height:250px"
-                />
-            </b-carousel>
+                    {{ gallery.title}}</h2>
+            </div>
 
-        </div>
-        <!-- end -->
-        <!-- comments -->
-        <div class="mt-4">
 
-            <!-- <comment-list :comments="comments"></comment-list> -->
+            <!-- carousel  -->
+            <div class="container mt-4">
+                <b-carousel id="carousel1" controls indicators>
+                    <b-carousel-slide v-for="(image, key) in gallery.images" :key="key" :img-src="image.imageUrl" style="width:100%; height:350px"
+                    />
+                </b-carousel>
 
-            <add-comment @commentAdded="addComment"></add-comment>
+            </div>
+            <!-- info-->
+            <div class="container info-div">
+                <h6 class="card-title">
+                    <b class="font-color">Author: </b>
+                    <b>{{gallery.user.firstName}} {{gallery.user.lastName}}</b>
+                </h6>
+                <h6 class="card-title">
+                    <b class="font-color">Description: </b>
+                </h6>
+                <div class="info-gallery">{{gallery.description}}</div>
 
-        </div>
-        <!-- comments end--> 
- <div class="mt-4">
-<div class="list-group" v-if="gallery.comments.length" >
-      <h5>Comments:</h5>
-    <li class="list-group-item" 
-    v-for="comment in gallery.comments" :key="comment.id">
-   <p>Author:{{ comment.user.firstName  }}</p>  
-    <p>Comment Date:{{ comment.created_at}}</p>
-    <p>Comment Content- {{ comment.content }}</p>
-     <button v-if="comment.user.id == loggedUserId" class="btn btn-danger" @click="deleteComment(comment)">Delete</button>
-    </li>
-  </div>
- </div>
+                <h6 class="card-title">
+                    <b class="font-color">Created_at: </b>{{ gallery.created_at}}</h6>
+                <button type="button" class="btn btn-outline-success" v-if="gallery.user.id == loggedUserId" @click="deleteGallery">Delete gallery</button>
+
+            </div>
+            <!-- end -->
+            <!-- comments list -->
+            <div class="mt-4 comments">
+                <div class="list-group" v-if="gallery.comments.length">
+                    <h5>Comments:</h5>
+                    <li class="list-group-item" v-for="comment in gallery.comments" :key="comment.id">
+                        <p>Author: {{ comment.user.firstName }} </p>
+                        <p>Date: {{ comment.created_at}}</p>
+                        <p>Content: {{ comment.content.substr(0,70) }}...</p>
+                        <button type="button" class="btn btn-outline-success" v-if="comment.user.id == loggedUserId" @click="deleteComment(comment)">Delete comment</button>
+                    </li>
+                </div>
+            </div>
+            <!-- comments end -->
+            <!-- add -->
+            <div class="mt-4 add-comment">
+                <add-comment @commentAdded="addComment"></add-comment>
+
+            </div>
+            <!-- end-->
+
+
+        </section>
 
     </div>
-
-
 
 </template>
 
@@ -53,10 +65,6 @@
 <script>
     import AddComment from "./../components/AddComment.vue"
     import CommentsList from "./../components/CommentsList.vue"
-
-
-
-
     import {
         galleriesService
     } from './../services/GalleriesService'
@@ -73,36 +81,40 @@
                 loggedUserId: window.localStorage.getItem("currentUserId")
             };
         },
-        // computed: {
-        //     comments () {
-        //       return this.gallery.comments ? this.gallery.comments.reverse() : []
-        //     }
-        //   },
-
-                methods:{
-           addComment(comment){
-        galleriesService.addComment(comment, this.gallery.id)
-        .then((response) => {
-                    galleriesService.getGallery(this.gallery.id)
+        methods: {
+            addComment(comment) {
+                galleriesService.addComment(comment, this.gallery.id)
                     .then((response) => {
-                    this.gallery= response.data
-                  
-                      })
-                        })
+                        galleriesService.getGallery(this.gallery.id)
+                            .then((response) => {
+                                this.gallery = response.data
+
+                            })
+                    })
             },
 
-             deleteComment(comment){
-    let confirmDelete = confirm('Do you want to delete this comment?')
-        if (confirmDelete) { 
-        galleriesService.deleteComment(comment.id)
-          .then((response) => {
-                    galleriesService.getGallery(this.gallery.id)
-                    .then((response) => {
-                    this.gallery= response.data
-                  
-                      })
+            deleteComment(comment) {
+                let confirmDelete = confirm('Do you want to delete this comment?')
+                if (confirmDelete) {
+                    galleriesService.deleteComment(comment.id)
+                        .then((response) => {
+                            galleriesService.getGallery(this.gallery.id)
+                                .then((response) => {
+                                    this.gallery = response.data
+
+                                })
                         })
-            }}},
+                }
+            },
+            deleteGallery() {
+                galleriesService.remove(this.gallery.id)
+                    .then(() => {
+                        this.$router.push({
+                            name: "my-galleries"
+                        })
+                    })
+            }
+        },
 
         beforeRouteEnter(to, from, next) {
             galleriesService.getGallery(to.params.id)
@@ -115,3 +127,28 @@
 
     }
 </script>
+<style>
+    .font-color {
+        color: rgb(23, 105, 23);
+    }
+
+    .top-div {
+        margin: 3rem;
+    }
+
+    .info-div {
+        margin: 3rem 0;
+    }
+
+    .info-gallery,
+    .comments,
+    .add-comment {
+        margin: 0.650rem 0;
+
+    }
+
+    .comments {
+
+        font-family: 'Sanchez', serif;
+    }
+</style>

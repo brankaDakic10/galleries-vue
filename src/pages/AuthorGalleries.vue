@@ -6,15 +6,29 @@
        
         <h6 class="card-title">
             <i style="color: darkblue">Author: </i>{{author.firstName}} {{author.lastName}}</h6>
-           <h6> <i style="color: darkblue">Email: </i>{{author.email}}</h6>
           <section >
            <h5><i style="color: darkblue">List of Galleries</i></h5>
-          <ul v-for="gallery in author.galleries" :key="gallery.id">
+          <!-- <ul v-for="gallery in author.galleries" :key="gallery.id">
           <i style="color: darkblue">  <li> Title:   {{gallery.title}}
-                    </li></i></ul>
+                    </li></i></ul> -->
           </section>
 
+          <div class="col-8 mt-4"> 
+        <div v-for="(gallery, key) in author.galleries"
+         :key="key"  
+          alt="">
+           <i style="color: darkblue">  <li> Title:   {{gallery.title}}
+                    </li></i>
+ <b-carousel id="carousel1" controls indicators>
+    <b-carousel-slide v-for="(image, key) in gallery.images" :key="key" :img-src="image.imageUrl" style="width:100%; height:250px"
+                />
+            </b-carousel>
+         </div>
+          </div>
+          <footer>
+                         <h6> <i style="color: darkblue">Email: </i>{{author.email}}</h6>
 
+          </footer>
     </div>
 
 

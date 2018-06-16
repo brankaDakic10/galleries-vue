@@ -20,7 +20,7 @@
 
             </form>
             <p class="text-center">
-                <a href="#" @click="redirectToRegiser">Create an Account</a>
+                <a href="#" @click="redirectToRegiser" class="font-color">Create an Account</a>
             </p>
         </div>
     </div>
@@ -101,5 +101,8 @@
         font-weight: bold;
      
     }
-  
+   .font-color {
+        color: rgb(23, 105, 23);
+    }
+
 </style>

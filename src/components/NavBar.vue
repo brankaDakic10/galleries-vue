@@ -4,7 +4,7 @@
     <a href="#" class="navbar-brand" >GalleriesApp</a>
 
             <div class="navbar-nav w-100">
-             <router-link class="nav-item nav-link" :to="{name:'home'}">AllGalleries</router-link>
+             <router-link class="nav-item nav-link" :to="{name:'home'}">Galleries</router-link>
 
                 <router-link class="nav-item nav-link" :to="{name:'my-galleries'}" v-if="isAuthenticated">MyGalleries</router-link>
                 <router-link class="nav-item nav-link" :to="{name:'create'}" v-if="isAuthenticated">CreateNewGallery</router-link>
@@ -62,6 +62,8 @@
 
 <style scoped>
     .main-nav {
-        background-color: rgb(57, 57, 216);
+        /* background-color: rgb(17, 116, 37); */
+        /* background-color: rgb(57, 57, 216); */
+        background-color: rgb(20, 126, 43);
     }
 </style>

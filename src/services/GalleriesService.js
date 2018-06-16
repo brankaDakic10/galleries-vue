@@ -32,7 +32,7 @@ export default class GalleriesService {
     remove (id) {
         return axios.delete(`galleries/${id}`) 
     }
-//////
+// comments
     addComment(comment, galleryId) {
         return axios.post(`galleries/${galleryId}/comments`, comment)
       }
