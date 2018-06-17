@@ -111,12 +111,15 @@
                 }
             },
             deleteGallery() {
-                galleriesService.remove(this.gallery.id)
-                    .then(() => {
-                        this.$router.push({
-                            name: "my-galleries"
+                let confirmDeleteGallery = confirm('Do you want to delete this gallery?')
+                if (confirmDeleteGallery) {
+                    galleriesService.remove(this.gallery.id)
+                        .then(() => {
+                            this.$router.push({
+                                name: "my-galleries"
+                            })
                         })
-                    })
+                }
             }
         },
 
