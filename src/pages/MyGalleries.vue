@@ -1,28 +1,35 @@
 <template>
-    <div class="container">
-        
-        <h5><i style="color: darkblue">My Galleries</i></h5>
-    <div v-for="gallery in galleries" :key="gallery.id">
-                   <h5 style="color: darkblue">{{gallery.title}}</h5>    
+    <div class="container my-galleries">
 
-                     <p>Description: {{gallery.description}}</p>
-                       <!-- ////// -->
-                       <!-- <div class="col-8 mt-4">
-             <b-carousel id="carousel1"
-                controls
-                indicators>
-                <b-carousel-slide v-for="(image, key) in gallery.images" :key="key" :img-src="image.imageUrl" style="width:100%; height:250px"/>
-</b-carousel>
+      <div class="page-top">
+        <h2 class="text-center"><b>My Galleries</b></h2>
+      </div>
+      
+          <!-- <div > -->
+           
+    <div class="row" v-for="gallery in galleries" :key="gallery.id">
+         <div class="container info-gallery"> 
+           <article class="col-sm-12">
+             <h4 class="text-center" >{{gallery.title}}</h4> </article>   
 
-        </div> -->
-        <!--  -->
-        <div class="col-8 mt-4"> <img v-for="(image, key) in gallery.images" :key="key" :src="image.imageUrl" style="width:35%; height:150px" alt=""></div>
+         <article  class="col-sm-12">
+          <b> Description:</b> 
+           <p>{{gallery.description.substr(0,100)}}...</p></article>
+           </div>  
+
+           <!-- info end        -->
+        <div class="col-sm-10 offset-sm-1 mt-4"> 
+          <img v-for="(image, key) in gallery.images"
+           :key="key" :src="image.imageUrl" 
+           alt=""
+           class="one-img"></div>
                     </div>
+                    
   <div class="alert alert-warning" role="alert" v-if="!galleries.length">
 <strong>Warning!</strong> There is no gallery created!
             </div>
-
-    </div>
+</div>
+    <!-- </div> -->
 </template>
 
 <script>
@@ -47,6 +54,29 @@ name:"MyGalleries",
 }}
 </script>
 
-<style>
+<style scoped>
+.one-img{
+  /* width:200px;
+   height:150px; */
+   width:25%; height:120px;
+}
+.info-gallery{
+  padding: 20px;
+  color: rgb(207, 54, 87)
+}
+.info-gallery h4{
+   margin: 10px 0;
+  color: rgb(7, 36, 7);
+}
+.page-top{
+  padding-top: 20px;
+  margin: 20px 0;
+   color: rgb(7, 36, 7);
+   font-family: 'Rakkas', cursive;
+}
+.my-galleries{
+  /* test */
+  background-color: rgb(192, 235, 175)
+}
 
 </style>

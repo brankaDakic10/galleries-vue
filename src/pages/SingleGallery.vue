@@ -26,7 +26,7 @@
                 <h6 class="card-title">
                     <b class="font-color">Description: </b>
                 </h6>
-                <div class="info-gallery">{{gallery.description}}</div>
+                <div class="info-gallery">{{gallery.description.substr(0,70) }}...</div>
 
                 <h6 class="card-title">
                     <b class="font-color">Created_at: </b>{{ gallery.created_at}}</h6>
@@ -64,15 +64,14 @@
 
 <script>
     import AddComment from "./../components/AddComment.vue"
-    import CommentsList from "./../components/CommentsList.vue"
     import {
         galleriesService
     } from './../services/GalleriesService'
     export default {
         name: "SingleGallery",
         components: {
-            AddComment,
-            CommentsList
+            AddComment
+           
         },
 
         data() {

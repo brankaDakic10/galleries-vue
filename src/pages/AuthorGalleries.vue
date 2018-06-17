@@ -1,36 +1,33 @@
 <template>
+    <div class="container mb-2">
+        <div class="text-center">
+            <h4>
+                <p class="author-page">Author: </p>
+                <b>
+                    {{author.firstName}} {{author.lastName}}
+                </b>
+            </h4>
+        </div>
 
-    <div class="col-md-6 offset-md-3 mt-4">
-        <!-- <img class="card-img-top" :src="gallery.images[0].imageUrl" alt="Card image cap"
-      style="width: 5rem;"> -->
-       
-        <h6 class="card-title">
-            <i style="color: darkblue">Author: </i>{{author.firstName}} {{author.lastName}}</h6>
-          <section >
-           <h5><i style="color: darkblue">List of Galleries</i></h5>
-          <!-- <ul v-for="gallery in author.galleries" :key="gallery.id">
-          <i style="color: darkblue">  <li> Title:   {{gallery.title}}
-                    </li></i></ul> -->
-          </section>
 
-          <div class="col-8 mt-4"> 
-        <div v-for="(gallery, key) in author.galleries"
-         :key="key"  
-          alt="">
-           <i style="color: darkblue">  <li> Title:   {{gallery.title}}
-                    </li></i>
- <b-carousel id="carousel1" controls indicators>
-    <b-carousel-slide v-for="(image, key) in gallery.images" :key="key" :img-src="image.imageUrl" style="width:100%; height:250px"
-                />
-            </b-carousel>
-         </div>
-          </div>
-          <footer>
-                         <h6> <i style="color: darkblue">Email: </i>{{author.email}}</h6>
+        <div v-for="(gallery, key) in author.galleries" :key="key" alt="" class="holder">
 
-          </footer>
+            <div class="imgs">
+                <b-carousel id="carousel1" controls>
+                    <b-carousel-slide v-for="(image, key) in gallery.images" :key="key" :img-src="image.imageUrl" class="slide" />
+                </b-carousel>
+                <div class="text-center holder-title">
+                    <b class="author-page">
+                        <h6>{{gallery.title}}
+                        </h6>
+                    </b>
+                </div>
+            </div>
+
+
+        </div>
+
     </div>
-
 
 
 </template>
@@ -59,4 +56,51 @@
 
     };
 </script>
+<style scoped>
+    .container {
+        width: 700px;
+        height: 380px;
+        margin: 20px auto;
+        box-sizing: border-box;
+    }
 
+    .holder {
+        width: 300px;
+        height: 250px;
+        margin: 15px;
+        float: left;
+
+    }
+
+    .holder .imgs {
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        transition: opacity 1s, transform 0.7s ease-in;
+    }
+
+    .imgs:hover {
+        opacity: 1;
+        transform: scale(1.1);
+        box-shadow: 1px 3px 8px 4px rgb(195, 195, 195);
+    }
+
+    .holder-title {
+
+        margin: 30px 0;
+    }
+
+    .slide {
+        width: 100%;
+        height: 200px;
+    }
+
+    .author-page {
+        /* color: rgb(20, 126, 43); */
+        color:rgb(13, 90, 13);
+          font-family: 'Sanchez', serif, arial;
+    /* font-family: 'Roboto+Mono', serif, arial; */
+
+          
+    }
+</style>
