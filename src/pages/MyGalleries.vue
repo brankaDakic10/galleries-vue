@@ -7,40 +7,72 @@
       
           <!-- <div > -->
            
-    <div class="row" v-for="gallery in galleries" :key="gallery.id">
-         <div class="container info-gallery"> 
-           <article class="col-sm-12">
-             <h4 class="text-center" >{{gallery.title}}</h4> </article>   
-
-         <article  class="col-sm-12">
-          <b> Description:</b> 
-           <p>{{gallery.description.substr(0,100)}}...</p></article>
-           </div>  
+    <div class="row" v-for="gallery in visibleCollectionOfGalleries" :key="gallery.id">
+          
 
            <!-- info end        -->
         <div class="col-sm-10 offset-sm-1 mt-4"> 
+          <div class="container info-gallery"> 
+           <article class="col-sm-12">
+             <h4>Gallery title:<b> {{gallery.title}}</b></h4> </article>   
+
+         <article  class="col-sm-12">
+          
+           <p><b> Description:</b> {{gallery.description.substr(0,80)}}...</p></article>
+           </div> 
           <img v-for="(image, key) in gallery.images"
            :key="key" :src="image.imageUrl" 
            alt=""
            class="one-img"></div>
                     </div>
                     
-  <div class="alert alert-warning" role="alert" v-if="!galleries.length">
-<strong>Warning!</strong> There is no gallery created!
+  <div class="alert alert-warning text-center" role="alert" v-if="!galleries.length">
+<strong>Warning!</strong> You don't have created galleries!
             </div>
+
+
+             <div id="outer" class="ml-2 mt-2">
+        <Paginator :number-of-pages="totalNumberOfPages" :current-page="currentPage" @selected-page="changeCurrentPage" />
+ </div>
 </div>
-    <!-- </div> -->
+   
 </template>
 
 <script>
  import { galleriesService } from "./../services/GalleriesService"
+    import Paginator from  "./../components/Paginator.vue"
+
 export default {
 name:"MyGalleries",
+components:{
+  Paginator
+},
+
  data() {
             return {
-               galleries: []
+               galleries: [],
+                currentPage: 1
             }
         },
+        computed:{
+             totalNumberOfPages(){
+        return Math.ceil(this.galleries.length / 10)
+            },
+
+             visibleCollectionOfGalleries() {
+                let bottomIndexLimit = (this.currentPage - 1) * 10
+                let topIndexLimit = bottomIndexLimit + 10
+                return this.galleries.filter(
+                    (gallery, index) => index >= bottomIndexLimit && index < topIndexLimit)
+            }
+        },
+         methods: {
+           
+            changeCurrentPage(page) {
+                this.currentPage = page;
+            }
+         },
+
 
          beforeRouteEnter (to, from, next) {
    galleriesService.getUserGalleries()
@@ -62,21 +94,24 @@ name:"MyGalleries",
 }
 .info-gallery{
   padding: 20px;
-  color: rgb(207, 54, 87)
+
 }
 .info-gallery h4{
    margin: 10px 0;
-  color: rgb(7, 36, 7);
+ 
 }
 .page-top{
   padding-top: 20px;
   margin: 20px 0;
-   color: rgb(7, 36, 7);
+
    font-family: 'Rakkas', cursive;
 }
 .my-galleries{
-  /* test */
-  background-color: rgb(192, 235, 175)
+ 
+   font-family: 'Rakkas', cursive;
+   font-size: 1.2rem;
+   color: rgb(7, 36, 7);
+   
 }
 
 </style>

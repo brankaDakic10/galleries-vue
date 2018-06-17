@@ -1,6 +1,6 @@
 <template>
     <div class="container mb-2">
-        <div class="text-center">
+        <div class="text-center author-page mb-4">
             <h4>
                 <p class="author-page">Author: </p>
                 <b>
@@ -96,11 +96,11 @@
     }
 
     .author-page {
-        /* color: rgb(20, 126, 43); */
-        color:rgb(13, 90, 13);
+       
+       
           font-family: 'Sanchez', serif, arial;
     /* font-family: 'Roboto+Mono', serif, arial; */
-
+ color: rgb(7, 36, 7);
           
     }
 </style>

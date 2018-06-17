@@ -1,22 +1,26 @@
-<template>
-    <div>
-        <nav class="navbar navbar-expand-lg navbar-dark main-nav">
-    <a href="#" class="navbar-brand" >GalleriesApp</a>
+    <template>
+   <div>
+  <b-navbar type="dark"  class="main-nav" toggleable>
+    <b-navbar-toggle target="nav_dropdown_collapse"></b-navbar-toggle>
+    <b-collapse is-nav id="nav_dropdown_collapse">
 
-            <div class="navbar-nav w-100">
-             <router-link class="nav-item nav-link" :to="{name:'home'}">Galleries</router-link>
+      <b-navbar-nav>
+              <a href="#" class="navbar-brand" >GalleriesLogo</a>
+
+           <router-link class="nav-item nav-link" :to="{name:'home'}">Galleries</router-link>
 
                 <router-link class="nav-item nav-link" :to="{name:'my-galleries'}" v-if="isAuthenticated">MyGalleries</router-link>
                 <router-link class="nav-item nav-link" :to="{name:'create'}" v-if="isAuthenticated">CreateNewGallery</router-link>
-
-                <div class="navbar-nav">
-                    <router-link class="nav-item nav-link" :to="{name:'login'}" v-if="!isAuthenticated">Login</router-link>
+        
+      
+        <router-link class="nav-item nav-link" :to="{name:'login'}" v-if="!isAuthenticated">Login</router-link>
                     <router-link class="nav-item nav-link" :to="{name:'register'}" v-if="!isAuthenticated">Register</router-link>
                     <a href="#" class="nav-item nav-link" @click="logout" v-if="isAuthenticated">Logout</a>
-                </div>
-            </div>
-        </nav>
-    </div>
+       
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+</div>
 </template>
 
 <script>
@@ -65,5 +69,6 @@
         /* background-color: rgb(17, 116, 37); */
         /* background-color: rgb(57, 57, 216); */
         background-color: rgb(20, 126, 43);
+        font-size: 1.1rem;
     }
 </style>

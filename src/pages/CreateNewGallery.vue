@@ -1,7 +1,8 @@
 <template>
     <div class="container">
-
+<div class="top">
         <h3 class="text-center">Create new gallery </h3>
+        </div>
         <form @submit.prevent="storeGallery" class="jumbotron">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label" for="title">Title:</label>
@@ -26,7 +27,6 @@
                     <input v-model="row.imageUrl" type="text" id="image" class="form-control here" required="required" placeholder="Enter Image Url" />
                     <div v-if="newGallery.images.length !== 1" class="input-group-prepend">
                         <button @click.prevent="deleteRow(row)" class="btn btn-danger">Delete</button>
-
                     </div>
                    
                 </div>
@@ -105,16 +105,20 @@
                 this.$router.push({
                     name: "my-galleries"
                 })
-            }
+            },
+         
         }
     }
 </script>
 
-<style>
+<style scoped>
     .btn-add {
         background-color: rgb(20, 126, 43);
         color: white;
     }
+ .top h3{
+     margin: 12px 0;
+       font-family: 'Rakkas', cursive;}
 
     .buttons {
         padding-top: 15px;
