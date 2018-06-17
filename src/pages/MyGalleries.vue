@@ -1,9 +1,9 @@
 <template>
-  <div class="container my-galleries">
+  <div class="container my-galleries mb-4">
 
     <div class="page-top">
       <h2 class="text-center">
-        <b>My Galleries</b>
+       <i> <b>My Galleries</b></i>
       </h2>
     </div>
 
@@ -16,15 +16,15 @@
       <div class="col-sm-10 offset-sm-1 mt-4">
         <div class="container info-gallery">
           <article class="col-sm-12">
-            <h4>Gallery title:
-              <b> {{gallery.title}}</b>
+            <h4><i>Gallery title:
+              <b> {{gallery.title}}</b></i>
             </h4>
           </article>
 
           <article class="col-sm-12">
 
             <p>
-              <b> Description:</b> {{gallery.description.substr(0,80)}}...</p>
+              <i> Description: {{gallery.description.substr(0,80)}}...</i></p>
           </article>
         </div>
         <img v-for="(image, key) in gallery.images" :key="key" :src="image.imageUrl" alt="" class="one-img rounded img-fluid">
