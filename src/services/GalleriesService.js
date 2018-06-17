@@ -1,11 +1,11 @@
 import axios from 'axios'
 
 export default class GalleriesService {
-    constructor () {
+    constructor() {
         axios.defaults.baseURL = 'http://localhost:8000/api/'
     }
 
-    getAll () {
+    getAll() {
         return axios.get()
     }
 
@@ -21,24 +21,24 @@ export default class GalleriesService {
         return axios.get(`authors/${id}`)
     }
 
-    add (gallery) {
+    add(gallery) {
         return axios.post('create', gallery)
     }
 
-    edit (gallery) {
-        return axios.put(`edit-gallery/${gallery.id}`, gallery) 
+    edit(gallery) {
+        return axios.put(`edit-gallery/${gallery.id}`, gallery)
     }
 
-    remove (id) {
-        return axios.delete(`galleries/${id}`) 
+    remove(id) {
+        return axios.delete(`galleries/${id}`)
     }
-// comments
+    // comments
     addComment(comment, galleryId) {
         return axios.post(`galleries/${galleryId}/comments`, comment)
-      }
+    }
     deleteComment(commentId) {
         return axios.delete(`/comments/${commentId}`)
-      }
+    }
 
 }
 export const galleriesService = new GalleriesService()

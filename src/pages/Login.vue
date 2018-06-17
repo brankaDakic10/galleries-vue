@@ -3,7 +3,9 @@
 
         <div class="login-form">
             <form @submit.prevent="onSubmit">
-                <h2 class="text-center"><b>Log in</b></h2>
+                <h2 class="text-center">
+                    <b>Log in</b>
+                </h2>
                 <div class="form-group">
                     <input type="text" id="email" name="email" class="form-control" placeholder="Username" required="required" v-model="email">
                 </div>
@@ -93,16 +95,16 @@
     .btn {
         min-height: 38px;
         border-radius: 2px;
-        
+
     }
 
     .btn {
         font-size: 15px;
         font-weight: bold;
-     
-    }
-   .font-color {
-        color: rgb(23, 105, 23);
+
     }
 
+    .font-color {
+        color: rgb(23, 105, 23);
+    }
 </style>

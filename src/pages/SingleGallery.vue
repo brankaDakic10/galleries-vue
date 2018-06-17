@@ -40,7 +40,8 @@
                     <h5>Comments:</h5>
                     <li class="list-group-item" v-for="comment in gallery.comments" :key="comment.id">
                         <p>Author: {{ comment.user.firstName }} </p>
-                        <p>Date: {{ comment.created_at}}</p>
+                        <p>Date: {{ comment.created_at | formatDate}}</p>
+                        <p>Time: {{ comment.created_at | diffForHumans}}</p>
                         <p>Content: {{ comment.content.substr(0,70) }}...</p>
                         <button type="button" class="btn btn-outline-success" v-if="comment.user.id == loggedUserId" @click="deleteComment(comment)">Delete comment</button>
                     </li>
@@ -67,12 +68,16 @@
     import {
         galleriesService
     } from './../services/GalleriesService'
+    import {
+        DateMixin
+    } from '../mixins'
     export default {
         name: "SingleGallery",
         components: {
             AddComment
-           
         },
+
+        mixins: [DateMixin],
 
         data() {
             return {

@@ -1,43 +1,47 @@
 import Vue from "vue"
 import Vuex from "vuex"
 
-import { galleriesService } from './../services/GalleriesService'
-import { authService } from "../services/AuthService";
+import {
+  galleriesService
+} from './../services/GalleriesService'
+import {
+  authService
+} from "../services/AuthService";
 
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
-  state:{
+  state: {
     isAuthenticated: authService.isAuthenticated,
-    galleries:[]
+    galleries: []
   },
-  getters:{
-    getIsAuthenticated(state){
+  getters: {
+    getIsAuthenticated(state) {
       return state.isAuthenticated;
     },
     getGalleries(state) {
       return state.galleries;
     }
   },
-  mutations:{
-    setIsAuthenticated(state, auth){
+  mutations: {
+    setIsAuthenticated(state, auth) {
       state.isAuthenticated = auth;
     },
     setGalleries(state, galleries) {
       state.galleries = galleries;
     },
   },
-  actions:{
+  actions: {
     fetchGalleries(store) {
       galleriesService.getAll()
-      .then(({
-        data
-      }) => {
-        let galleries = data;
-        store.commit("setGalleries", galleries);  
-      })
+        .then(({
+          data
+        }) => {
+          let galleries = data;
+          store.commit("setGalleries", galleries);
+        })
     }
   }
-  
-  
+
+
 })

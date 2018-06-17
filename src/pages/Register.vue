@@ -168,7 +168,8 @@
         padding-bottom: 20px;
         margin-bottom: 10px;
     }
-    .log{
-        color:#0069d9;
+
+    .log {
+        color: #0069d9;
     }
 </style>

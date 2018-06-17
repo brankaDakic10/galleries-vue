@@ -96,11 +96,10 @@
     }
 
     .author-page {
-       
-       
-          font-family: 'Sanchez', serif, arial;
-    /* font-family: 'Roboto+Mono', serif, arial; */
- color: rgb(7, 36, 7);
-          
+
+
+        font-family: 'Sanchez', serif, arial;
+        color: rgb(7, 36, 7);
+
     }
 </style>

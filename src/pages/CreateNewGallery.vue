@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-<div class="top">
-        <h3 class="text-center">Create new gallery </h3>
+        <div class="top">
+            <h3 class="text-center">Create new gallery </h3>
         </div>
         <form @submit.prevent="storeGallery" class="jumbotron">
             <div class="form-group row">
@@ -9,7 +9,7 @@
                 <div class="col-sm-12">
                     <input id="title" name="title" type="text" class="form-control here" required="required" minlength="2" maxlength="255" v-model="newGallery.title"
                         placeholder="Enter title ">
-     
+
                 </div>
             </div>
             <div class="form-group row">
@@ -17,18 +17,19 @@
                 <div class="col-sm-12">
                     <textarea id="description" rows="5" name="description" type="text" class="form-control here" maxlength="1000" v-model="newGallery.description"
                         placeholder="Enter description"></textarea>
-                        
+
                 </div>
             </div>
             <!-- block -->
             <div v-for="(row, key) in newGallery.images" :key="key" class="form-group">
                 <label for="image">Image url:</label>
                 <div class="input-group mb-3">
-                    <input v-model="row.imageUrl" type="text" id="image" class="form-control here" required="required" placeholder="Enter Image Url" />
+                    <input v-model="row.imageUrl" type="text" id="image" class="form-control here" required="required" placeholder="Enter Image Url"
+                    />
                     <div v-if="newGallery.images.length !== 1" class="input-group-prepend">
                         <button @click.prevent="deleteRow(row)" class="btn btn-danger">Delete</button>
                     </div>
-                   
+
                 </div>
             </div>
 
@@ -43,7 +44,7 @@
 
                     <button class="btn btn-info btn-lg" @click="cancel">Cancel</button>
 
-                    <button name="submit" type="submit" class="btn btn-success btn-lg">Submit</button>
+                    <button name="submit" type="submit" class="btn btn-success btn-lg">Create Gallery</button>
                 </div>
             </div>
 
@@ -97,16 +98,13 @@
                     name: 'home'
                 })
             },
-            addUrl() {
-
-            },
 
             cancel() {
                 this.$router.push({
                     name: "my-galleries"
                 })
             },
-         
+
         }
     }
 </script>
@@ -116,12 +114,17 @@
         background-color: rgb(20, 126, 43);
         color: white;
     }
- .top h3{
-     margin: 12px 0;
-       font-family: 'Rakkas', cursive;}
+
+    .top h3 {
+        margin: 12px 0;
+        font-family: 'Rakkas', cursive;
+    }
 
     .buttons {
         padding-top: 15px;
+    }
 
+    label {
+        font-size: 1.1rem;
     }
 </style>
